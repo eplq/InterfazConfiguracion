@@ -18,7 +18,12 @@ class JSONConfig implements IConfiguracion
 
     private function readFile()
     {
-        $fileData = fread($this->file, filesize($this->filename));
+        $filesize = filesize($this->filename);
+        $fileData = "[]";
+        if ($filesize > 0) {
+            $fileData = fread($this->file, filesize($this->filename));
+        }
+
         $this->jsonData = json_decode($fileData, true);
     }
 
