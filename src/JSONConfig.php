@@ -11,7 +11,7 @@ class JSONConfig implements IConfiguracion
     public function openFile(string $filename): void
     {
         $this->filename = $filename;
-        $this->file = fopen($filename, "w+");
+        $this->file = fopen($filename, "a+");
 
         $this->readFile();
     }
@@ -47,17 +47,18 @@ class JSONConfig implements IConfiguracion
         return null;
     }
 
-    public function createValue(string $key, $value): void
+    public function createValue(string $key, $value): bool
     {
-        if (!is_numeric($value) || !is_bool($value) || !is_array($value)) {
-            return;
+        if (!is_numeric($value) && !is_bool($value) && !is_array($value) && !is_string($value)) {
+            return false;
         }
 
         if (array_key_exists($key, $this->jsonData)) {
-            return;
+            return false;
         }
 
         $this->jsonData[$key] = $value;
+        return true;
     }
 
     public function removeKey(string $key): void
@@ -69,7 +70,7 @@ class JSONConfig implements IConfiguracion
 
     public function modifyValue(string $key, $newValue): void
     {
-        if (!is_numeric($newValue) || !is_bool($newValue) || !is_array($newValue)) {
+        if (!is_numeric($newValue) && !is_bool($newValue) && !is_array($newValue) && !is_string($newValue)) {
             return;
         }
 

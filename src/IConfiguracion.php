@@ -10,5 +10,5 @@ interface IConfiguracion
     public function readValue(string $key);
     public function removeKey(string $key): void;
     public function modifyValue(string $key, $newValue): void;
-    public function createValue(string $key, $value): void;
+    public function createValue(string $key, $value): bool;
 }
