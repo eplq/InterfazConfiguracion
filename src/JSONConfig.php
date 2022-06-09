@@ -2,37 +2,18 @@
 
 namespace ITEC\DAW\EPL\Configuracion;
 
-class JSONConfig implements IConfiguracion
+class JSONConfig extends File implements IConfiguracion
 {
-    private string $filename;
-    private $file;
     private array $jsonData;
 
-    public function openFile(string $filename): void
+    protected function readFile(): void
     {
-        $this->filename = $filename;
-
-        if (!file_exists($this->filename)) {
-            touch($this->filename);
-        }
-
-        $this->readFile();
+        $this->jsonData = json_decode($this->fileData, true) ?? [];
     }
 
-    private function readFile()
+    protected function saveFile(): void
     {
-        $fileData = file_get_contents($this->filename);
-        $this->jsonData = json_decode($fileData, true) ?? [];
-    }
-
-    public function closeFile(): void
-    {
-        $this->saveFile();
-    }
-
-    private function saveFile(): void
-    {
-        file_put_contents($this->filename, json_encode($this->jsonData));
+        $this->fileData = json_encode($this->jsonData);
     }
 
     public function readValue(string $key): string | float | int | bool | array | null
