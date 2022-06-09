@@ -11,31 +11,28 @@ class JSONConfig implements IConfiguracion
     public function openFile(string $filename): void
     {
         $this->filename = $filename;
-        $this->file = fopen($filename, "a+");
+
+        if (!file_exists($this->filename)) {
+            touch($this->filename);
+        }
 
         $this->readFile();
     }
 
     private function readFile()
     {
-        $filesize = filesize($this->filename);
-        $fileData = "[]";
-        if ($filesize > 0) {
-            $fileData = fread($this->file, filesize($this->filename));
-        }
-
-        $this->jsonData = json_decode($fileData, true);
+        $fileData = file_get_contents($this->filename);
+        $this->jsonData = json_decode($fileData, true) ?? [];
     }
 
     public function closeFile(): void
     {
         $this->saveFile();
-        fclose($this->file);
     }
 
     private function saveFile(): void
     {
-        fwrite($this->file, json_encode($this->jsonData));
+        file_put_contents($this->filename, json_encode($this->jsonData));
     }
 
     public function readValue(string $key): string | float | int | bool | array | null
