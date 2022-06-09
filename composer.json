@@ -19,5 +19,8 @@
         "psr-4": {
             "ITEC\\DAW\\EPL\\Configuracion\\": "src/"
         }
+    },
+    "require": {
+        "symfony/yaml": "^6.1"
     }
 }
