@@ -9,12 +9,12 @@ class INIConfig extends File implements IConfiguracion
 {
     private array $iniData;
 
-    public function readFile(): void
+    protected function readFile(): void
     {
         $this->iniData = parse_ini_string($this->fileData, true);
     }
 
-    public function saveFile(): void
+    protected function saveFile(): void
     {
         // https://stackoverflow.com/a/5695202
 
