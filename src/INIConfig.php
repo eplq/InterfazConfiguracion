@@ -20,15 +20,7 @@ class INIConfig extends File implements IConfiguracion
 
         $res = array();
         foreach ($this->iniData as $key => $val) {
-            if (is_array($val)) {
-                $res[] = "[$key]";
-
-                foreach ($val as $skey => $sval) {
-                    $res[] = "$skey = " . (is_numeric($sval) ? $sval : '"' . $sval . '"');
-                }
-            } else {
-                $res[] = "$key = " . (is_numeric($val) ? $val : '"' . $val . '"');
-            }
+            $res[] = "$key = " . (is_numeric($val) ? $val : '"' . $val . '"');
         }
 
         $this->fileData = implode("\n", $res);
