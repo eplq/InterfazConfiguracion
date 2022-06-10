@@ -10,7 +10,7 @@ class YMLConfig extends File implements IConfiguracion
 
     protected function readFile(): void
     {
-        $this->ymlData = Yaml::parse($this->fileData);
+        $this->ymlData = Yaml::parse($this->fileData) ?? [];
     }
 
     protected function saveFile(): void
