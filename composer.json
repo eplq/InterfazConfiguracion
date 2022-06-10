@@ -21,6 +21,7 @@
         }
     },
     "require": {
-        "symfony/yaml": "^6.1"
+        "symfony/yaml": "^6.1",
+        "league/csv": "^9.8"
     }
 }
